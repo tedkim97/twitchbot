@@ -36,3 +36,24 @@ def loadingComplete(line):
 	if("End of /NAMES list" in line): 
 		return False 
 	return True 
+
+def timeout(s, user, time=60): 
+	sendMessage(s, "/timeout {} {}".format(user,str(time)))
+
+def ban(s, user): 
+	sendMessage(s, "/ban {}".format(user))
+
+def unban(s, user): 
+	sendMessage(s, "/unban {}".format(user))
+
+def followers_only(s, length: str):
+	sendMessage(s, "/followers {}".format(length))
+
+def followers_off(s):
+	sendMessage(s, "/followersoff")
+
+def slowmode(s, time=60): 
+	sendMessage(s, "/slow" + str(time))
+
+def slow_off(s): 
+	sendMessage(s, "/slowoff")
