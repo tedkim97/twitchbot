@@ -1,6 +1,7 @@
 import string
 import socket
 import re
+from gen_functions import encoded_send
 #import pyautogui
 #from keys import*
 #from pynput import mouse as m 
@@ -50,8 +51,7 @@ class tc_bot(object):
 		encoded_send(self.socket, messageTemp+"\r\n")
 		print("SENT: " + messageTemp)
 
-def encoded_send(socket, msg:str):
-	socket.send(msg.encode("utf-8"))
+
 
 if __name__ == "__main__": 
 	a = tc_bot("twitch_tries","bad_broker_bot","oauth:8298y40ehg7i3drbqjggqi49byztry")
