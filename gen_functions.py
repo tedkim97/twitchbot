@@ -57,3 +57,13 @@ def slowmode(s, time=60):
 
 def slow_off(s): 
 	sendMessage(s, "/slowoff")
+
+def emote_only(s): 
+	sendMessage(s, "/emoteonly")
+
+def emote_off(s): 
+	sendMessage(s, "/emoteonlyoff")
+
+def send_pong(s): 
+	sendMessage(s, "PONG :tmi.twitch.tv\r\n")
+	print("PONG sent to twitch")

@@ -37,6 +37,10 @@ class tc_bot(object):
 		encoded_send(self.socket, messageTemp+"\r\n")
 		print("SENT: " + messageTemp)
 
+	def run(self): 
+		while True: 
+			print("I dont think ")
+
 
 if __name__ == "__main__": 
 	a = tc_bot("twitch_tries","bad_broker_bot","oauth:8298y40ehg7i3drbqjggqi49byztry")
