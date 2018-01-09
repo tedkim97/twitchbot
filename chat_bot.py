@@ -1,7 +1,7 @@
 import string
 import socket
 import re
-from gen_functions import encoded_send
+from gen_functions import*
 #import pyautogui
 #from keys import*
 #from pynput import mouse as m 
@@ -50,7 +50,6 @@ class tc_bot(object):
 		messageTemp = "PRIVMSG #" + self.CHANNEL + " :" + message
 		encoded_send(self.socket, messageTemp+"\r\n")
 		print("SENT: " + messageTemp)
-
 
 
 if __name__ == "__main__": 
