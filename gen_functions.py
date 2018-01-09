@@ -15,12 +15,12 @@ def getUser(line):
 	user = separate[1].split("!", 1)[0]
 	return user 
 
-def sendMessage(socket, message): 
-	messageTemp = "PRIVMSG #" + CHANNEL + " :" + message
+def sendMessage(socket, channel, message): 
+	messageTemp = "PRIVMSG #" + channel + " :" + message
 	encoded_send(socket, messageTemp+"\r\n")
 	print("SENT: " + messageTemp)
 
-def joinRoom(socket, readbuffer):
+def joinRoom(socket, channel, readbuffer):
 	Loading = True 
 	while Loading: 
 		readbuffer= readbuffer + (socket.recv(1024)).decode("utf-8")
@@ -30,7 +30,7 @@ def joinRoom(socket, readbuffer):
 		for line in temp: 
 			print(line)
 			Loading = loadingComplete(line)
-	sendMessage("joined chat")
+	sendMessage(socket, channel ,"joined chat")
 
 def loadingComplete(line): 
 	if("End of /NAMES list" in line): 

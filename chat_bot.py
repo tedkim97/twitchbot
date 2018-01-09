@@ -19,24 +19,10 @@ class tc_bot(object):
 		self.PORT= port		
 		self.readbuffer = ""
 		self.socket = self.openSocket() 
-		self.joinRoom()
+		self._joinRoom()
 
-	def joinRoom(self):
-		Loading = True 
-		while Loading: 
-			self.readbuffer= self.readbuffer + (self.socket.recv(1024)).decode("utf-8")
-			temp= self.readbuffer.split("\n")
-			self.readbuffer= temp.pop()
-
-			for line in temp: 
-				print(line)
-				Loading = self.loadingComplete(line)
-		self.sendMessage("joined chat")
-
-	def loadingComplete(self, line): 
-		if("End of /NAMES list" in line): 
-			return False 
-		return True 
+	def _joinRoom(self):
+		joinRoom(self.socket, self.CHANNEL, self.readbuffer)
 
 	def openSocket(self):
 		s = socket.socket()
