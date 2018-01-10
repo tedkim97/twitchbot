@@ -33,17 +33,33 @@ class tc_bot(object):
 		return s
 
 	def sendMessage(self, message): 
-		messageTemp = "PRIVMSG #" + self.CHANNEL + " :" + message
-		encoded_send(self.socket, messageTemp+"\r\n")
-		print("SENT: " + messageTemp)
+		sendMessage(self.socket, self.channel, message)
 
 	def run(self): 
 		while True: 
-			print("I dont think ")
+			self.readbuffer = self.readbuffer + (self.socket.recv(1024)).decode("utf-8")
+			temp = self.readbuffer.split("\n")
+			self.readbuffer = temp.pop()
+
+			for line in temp: 
+				print(line)
+				if "PING :tmi.twitch.tv" in line: 
+					send_pong(self.socket)
+					break
+
+				user = getUser(line)
+				message = getMessage(line)
+				print(user + " typed: " + message)
+
+				if ("terminate bot" in line) and (user == self.CHANNEL):
+					print("terminating program")
+					self.sendMessage("terminating program")
+					break
 
 
 if __name__ == "__main__": 
 	a = tc_bot("twitch_tries","bad_broker_bot","oauth:8298y40ehg7i3drbqjggqi49byztry")
 	a.sendMessage("HELLO HELLO")
+	a.run()
 
 

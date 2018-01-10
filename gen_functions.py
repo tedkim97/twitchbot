@@ -5,7 +5,7 @@ import re
 def encoded_send(socket, msg:str):
 	socket.send(msg.encode("utf-8"))
 
-def getMessage(self, message): 
+def getMessage(line): 
 	separate = line.split(":", 2)
 	message = separate[2]
 	return message
@@ -65,5 +65,5 @@ def emote_off(s):
 	sendMessage(s, "/emoteonlyoff")
 
 def send_pong(s): 
-	sendMessage(s, "PONG :tmi.twitch.tv\r\n")
+	encoded_send(s, "PONG :tmi.twitch.tv\r\n")
 	print("PONG sent to twitch")
