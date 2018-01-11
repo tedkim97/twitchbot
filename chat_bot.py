@@ -33,7 +33,7 @@ class tc_bot(object):
 		return s
 
 	def sendMessage(self, message): 
-		sendMessage(self.socket, self.channel, message)
+		sendMessage(self.socket, self.CHANNEL, message)
 
 	def run(self): 
 		while True: 
