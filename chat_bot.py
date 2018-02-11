@@ -2,6 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
+import chatreader as key
 #import pyautogui
 #from keys import*
 #from pynput import mouse as m 
@@ -54,11 +55,21 @@ class tc_bot(object):
 				if ("terminate bot" in line) and (user == self.CHANNEL):
 					print("terminating program")
 					self.sendMessage("terminating program")
+					exit()
 					break
+
+				if("!right" in line):
+					print("someone voted right!")
+
+				if("!left" in line):
+					print("someone voted left!")
+
+				if("!superlike" in line):
+					print("someone super liked it")
 
 
 if __name__ == "__main__": 
-	a = tc_bot("twitch_tries","bad_broker_bot","oauth:8298y40ehg7i3drbqjggqi49byztry")
+	a = tc_bot(key.CHANNEL, key.IDENT,key.PASS)
 	a.sendMessage("HELLO HELLO")
 	a.run()
 

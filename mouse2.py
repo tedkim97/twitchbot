@@ -5,11 +5,11 @@ mouse = Controller()
 
 while True:
 	print('The current pointer posiiton is {0}'.format(mouse.position))
-	time.sleep(2)
-	mouse.press(Button.left)
-	mouse.move(-200, 200)
-	time.sleep(2)
-	mouse.release(Button.left)
+	time.sleep(3)
+	#mouse.press(Button.left)
+	#mouse.move(-200, 200)
+	#time.sleep(2)
+	#mouse.release(Button.left)
 
 '''
 time.sleep(5)

@@ -9,7 +9,6 @@ def pressKey(keyb, k: str):
 	keyb.press(k)
 	keyb.release(k)
 
-
 def leftClick(mos): 
 	mos.press(m.Button.left)
 	mos.release(m.Button.left)
