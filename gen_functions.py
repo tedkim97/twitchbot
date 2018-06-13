@@ -20,6 +20,11 @@ def sendMessage(socket, channel, message):
 	encoded_send(socket, messageTemp+"\r\n")
 	print("SENT: " + messageTemp)
 
+def loadingComplete(line): 
+	if("End of /NAMES list" in line): 
+		return False 
+	return True 
+
 def joinRoom(socket, channel, readbuffer):
 	Loading = True 
 	while Loading: 
@@ -32,38 +37,71 @@ def joinRoom(socket, channel, readbuffer):
 			Loading = loadingComplete(line)
 	sendMessage(socket, channel ,"joined chat")
 
-def loadingComplete(line): 
-	if("End of /NAMES list" in line): 
-		return False 
-	return True 
 
-def timeout(s, user, time=60): 
-	sendMessage(s, "/timeout {} {}".format(user,str(time)))
+#Moderator/Broadcaster Functions
+def timeout(socket, channel, user, time=60): 
+	sendMessage(socket, channel, "/timeout {} {}".format(user,str(time)))
 
-def ban(s, user): 
-	sendMessage(s, "/ban {}".format(user))
+def ban(socket, channel,user): 
+	sendMessage(socket, channel,"/ban {}".format(user))
 
-def unban(s, user): 
-	sendMessage(s, "/unban {}".format(user))
+def unban(socket, channel,user): 
+	sendMessage(socket, channel,"/unban {}".format(user))
 
-def followers_only(s, length: str):
-	sendMessage(s, "/followers {}".format(length))
+def followers_only(socket, channel,length: str):
+	'''Followers only takes a very specific format: 
+	#m = #minutes
+	#h = #hours
+	#d = #days
+	#w = #weeks
+	#mo = #months'''
+	sendMessage(socket,channel, "/followers {}".format(length))
 
-def followers_off(s):
-	sendMessage(s, "/followersoff")
+def followers_off(socket,channel):
+	sendMessage(socket, channel, "/followersoff")
 
-def slowmode(s, time=60): 
-	sendMessage(s, "/slow" + str(time))
+def slowmode(socket, channel,time=60): 
+	sendMessage(socket, channel, "/slow" + str(time))
 
-def slow_off(s): 
-	sendMessage(s, "/slowoff")
+def slow_off(socket, channel): 
+	sendMessage(socket, channel,"/slowoff")
 
-def emote_only(s): 
-	sendMessage(s, "/emoteonly")
+def emote_only(socket,channel): 
+	sendMessage(socket, channel, "/emoteonly")
 
-def emote_off(s): 
-	sendMessage(s, "/emoteonlyoff")
+def emote_off(socket,channel): 
+	sendMessage(socket,channel,"/emoteonlyoff")
 
-def send_pong(s): 
-	encoded_send(s, "PONG :tmi.twitch.tv\r\n")
+def send_pong(socket): 
+	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
 	print("PONG sent to twitch")
+
+#Definitely does not work
+# def mod_func(socket, channel, func, *additional_param):
+# 	#'timeout': 
+# 	#'ban':
+# 	#'unban':
+# 	{
+# 		'followers_only': followers_only(socket,channel, "10m"),
+# 		'followers_off': followers_off(socket,channel),
+# 		'slowmode': slowmode(socket,channel),
+# 		'slow_off': slow_off(socket,channel),
+# 		'emote_only': emote_only(socket,channel),
+# 		'emote_off': emote_off(socket,channel)
+# 	}[func]
+# 	print("Done")
+
+def mod_func(socket, channel, func, user ="", time=0):
+	#'timeout': 
+	#'ban':
+	#'unban':
+	switcher = {
+		'followers_only': ("/followers {}".format(time)),
+		'followers_off': "/followersoff",
+		'slowmode': ("/slow {}".format(time)),
+		'slow_off': ("/slowoff"),
+		'emote_only': "/emoteonly",
+		'emote_off': "/emoteonlyoff"
+	}
+	execute = switcher.get(func, "Oops")
+	sendMessage(socket, channel, execute)

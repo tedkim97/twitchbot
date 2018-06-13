@@ -118,7 +118,7 @@ class tt_bot(object):
 				if(("!exitDM" in line) and (self.tinder.get_state() == States.CHATWINDOW)):
 					print("Exitting DMs")
 					self.tinder.exit_chat()
-					self.tinder.clear_search()
+					self.tinder.clear_search_and_move()
 					break
 
 				'''vote commands'''

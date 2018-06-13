@@ -3,10 +3,6 @@ import socket
 import re
 from gen_functions import*
 import chatreader as key
-#import pyautogui
-#from keys import*
-#from pynput import mouse as m 
-#from pynput import keyboard as kb
 
 class tc_bot(object): 
 	"""the chat bot is created as an object to give the flexibility
@@ -54,8 +50,9 @@ class tc_bot(object):
 
 				if ("terminate bot" in line) and (user == self.CHANNEL):
 					print("terminating program")
-					self.sendMessage("terminating program")
-					exit()
+					mod_func(self.socket, self.CHANNEL,'emote_only')
+					#self.sendMessage("terminating program")
+					#exit()
 					break
 
 				if("!right" in line):
