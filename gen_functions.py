@@ -2,6 +2,8 @@ import string
 import socket
 import re
 
+
+'''Essential functions'''
 def encoded_send(socket, msg:str):
 	socket.send(msg.encode("utf-8"))
 
@@ -92,10 +94,13 @@ def send_pong(socket):
 # 	print("Done")
 
 def mod_func(socket, channel, func, user ="", time=0):
-	#'timeout': 
-	#'ban':
-	#'unban':
+	if time == 0: 
+		t_length = ""
+
 	switcher = {
+		'timeout_user': "/timeout {} {}".format(user, str(60 * time)),
+		'ban_user': "/ban {}".format(user),
+		'unban_user': "/unban {}".format(user),
 		'followers_only': ("/followers {}".format(time)),
 		'followers_off': "/followersoff",
 		'slowmode': ("/slow {}".format(time)),
@@ -103,5 +108,5 @@ def mod_func(socket, channel, func, user ="", time=0):
 		'emote_only': "/emoteonly",
 		'emote_off': "/emoteonlyoff"
 	}
-	execute = switcher.get(func, "Oops")
+	execute = switcher.get(func, "E R R O R")
 	sendMessage(socket, channel, execute)
