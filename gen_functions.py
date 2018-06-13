@@ -2,9 +2,9 @@ import string
 import socket
 import re
 
-
-'''Essential functions'''
+'''Essential functions for connecting to and interacting with'''
 def encoded_send(socket, msg:str):
+	'''passes a properly encoded message to the socket'''
 	socket.send(msg.encode("utf-8"))
 
 def getMessage(line): 
@@ -27,6 +27,10 @@ def loadingComplete(line):
 		return False 
 	return True 
 
+def send_pong(socket): 
+	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
+	print("PONG sent to twitch") #not necessary 
+
 def joinRoom(socket, channel, readbuffer):
 	Loading = True 
 	while Loading: 
@@ -41,70 +45,26 @@ def joinRoom(socket, channel, readbuffer):
 
 
 #Moderator/Broadcaster Functions
-def timeout(socket, channel, user, time=60): 
-	sendMessage(socket, channel, "/timeout {} {}".format(user,str(time)))
+def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
+	'''time is measured in minutes'''
+	if (time == 0) and ((func == 'timeout_user') or (func == 'slowmode')):
+		time = ""
+	
 
-def ban(socket, channel,user): 
-	sendMessage(socket, channel,"/ban {}".format(user))
-
-def unban(socket, channel,user): 
-	sendMessage(socket, channel,"/unban {}".format(user))
-
-def followers_only(socket, channel,length: str):
-	'''Followers only takes a very specific format: 
-	#m = #minutes
-	#h = #hours
-	#d = #days
-	#w = #weeks
-	#mo = #months'''
-	sendMessage(socket,channel, "/followers {}".format(length))
-
-def followers_off(socket,channel):
-	sendMessage(socket, channel, "/followersoff")
-
-def slowmode(socket, channel,time=60): 
-	sendMessage(socket, channel, "/slow" + str(time))
-
-def slow_off(socket, channel): 
-	sendMessage(socket, channel,"/slowoff")
-
-def emote_only(socket,channel): 
-	sendMessage(socket, channel, "/emoteonly")
-
-def emote_off(socket,channel): 
-	sendMessage(socket,channel,"/emoteonlyoff")
-
-def send_pong(socket): 
-	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
-	print("PONG sent to twitch")
-
-#Definitely does not work
-# def mod_func(socket, channel, func, *additional_param):
-# 	#'timeout': 
-# 	#'ban':
-# 	#'unban':
-# 	{
-# 		'followers_only': followers_only(socket,channel, "10m"),
-# 		'followers_off': followers_off(socket,channel),
-# 		'slowmode': slowmode(socket,channel),
-# 		'slow_off': slow_off(socket,channel),
-# 		'emote_only': emote_only(socket,channel),
-# 		'emote_off': emote_off(socket,channel)
-# 	}[func]
-# 	print("Done")
-
-def mod_func(socket, channel, func, user ="", time=0):
-	if time == 0: 
-		t_length = ""
+	#This IF lets the bot avoid spamming useless commands
+	if (user == '') and ((func == 'timeout_user') or (func == 'unban_user') or 
+	(func == 'ban_user')):
+		print("Invald Mod Function")
+		return
 
 	switcher = {
 		'timeout_user': "/timeout {} {}".format(user, str(60 * time)),
-		'ban_user': "/ban {}".format(user),
+		'ban_user': "/ban {} {}".format(user, ban_msg),
 		'unban_user': "/unban {}".format(user),
-		'followers_only': ("/followers {}".format(time)),
+		'followers_only': "/followers {}".format(time),
 		'followers_off': "/followersoff",
-		'slowmode': ("/slow {}".format(time)),
-		'slow_off': ("/slowoff"),
+		'slowmode': "/slow {}".format(time),
+		'slow_off': "/slowoff",
 		'emote_only': "/emoteonly",
 		'emote_off': "/emoteonlyoff"
 	}
