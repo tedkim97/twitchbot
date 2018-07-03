@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-import chatreader as key
+import credentials as key
 
 class mod_bot(object): 
 	"""the mod-bot is created as an object to give the flexibility

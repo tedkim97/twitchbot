@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-import chatreader as key
+import credentials as key
 
 class base_bot: 
 	'''This is a base-chat bot that has basic functionality of connecting
@@ -13,7 +13,7 @@ class base_bot:
 		self.ID= iden
 		self.PASS= oauth
 		self.HOST= host
-		self.PORT= port		
+		self.PORT= port			
 		self.readbuffer = ""
 		self.socket = self.openSocket() 
 		self._joinRoom()

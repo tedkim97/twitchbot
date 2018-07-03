@@ -43,6 +43,7 @@ def joinRoom(socket, channel, readbuffer):
 			Loading = loadingComplete(line)
 	sendMessage(socket, channel ,"joined chat")
 
+#match function
 
 #Moderator/Broadcaster Functions
 def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
