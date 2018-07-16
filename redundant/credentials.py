@@ -4,4 +4,6 @@ PASS = "oauth:sap9lv0yfr8en68pw2ysrnx10zeh9m"
 IDENT = "matchmaker_bot"
 #CHANNEL = "twitchwritesmyessay"
 #CHANNEL = "imaqtpie"
-CHANNEL = "demonstration_example"
+#CHANNEL = "loltyler1"
+#CHANNEL = "demonstration_example"
+CHANNEL = 'jergopieop'
