@@ -29,7 +29,16 @@ def loadingComplete(line):
 
 def send_pong(socket): 
 	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
-	print("PONG sent to twitch") #not necessary 
+	#not necessary, but gives confirmation that the pong is working properly
+	print("PONG sent to twitch") 
+
+def openSocket(host, port, pass_w, nick_n, channel):
+	s = socket.socket()
+	s.connect((host, port))
+	encoded_send(s, "PASS " + pass_w + "\r\n")
+	encoded_send(s, "NICK " + nick_n + "\r\n")
+	encoded_send(s, "JOIN #" + channel + "\r\n")
+	return s
 
 def joinRoom(socket, channel, readbuffer):
 	Loading = True 

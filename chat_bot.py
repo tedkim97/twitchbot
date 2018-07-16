@@ -56,12 +56,15 @@ class tc_bot(object):
 					break
 
 				if("!right" in line):
+					self.sendMessage("r r r r")
 					print("someone voted right!")
 
 				if("!left" in line):
+					self.sendMessage("l l l l")
 					print("someone voted left!")
 
 				if("!superlike" in line):
+					self.sendMessage("S S S S")
 					print("someone super liked it")
 
 

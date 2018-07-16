@@ -1,4 +1,4 @@
-import string
+cimport string
 import socket
 import re
 from gen_functions import*
@@ -6,28 +6,20 @@ import credentials as key
 
 class base_bot: 
 	'''This is a base-chat bot that has basic functionality of connecting
-	to a chat of a specific channel and sending or receiving messages'''
+	to a chat of a specific channel, sending messages,and printing messages'''
 
-	def __init__(self,chan,iden,oauth,host="irc.chat.twitch.tv",port=6667): 
-		self.CHANNEL = chan
+	def __init__(self,channel,iden,oauth,host="irc.chat.twitch.tv",port=6667): 
+		self.CHANNEL = channel
 		self.ID= iden
 		self.PASS= oauth
 		self.HOST= host
 		self.PORT= port			
 		self.readbuffer = ""
-		self.socket = self.openSocket() 
+		self.socket = openSocket(host,port,oauth,iden,channel)
 		self._joinRoom()
 
 	def _joinRoom(self):
 		joinRoom(self.socket, self.CHANNEL, self.readbuffer)
-
-	def openSocket(self):
-		s = socket.socket()
-		s.connect((self.HOST, self.PORT))
-		encoded_send(s, "PASS " + self.PASS + "\r\n")
-		encoded_send(s, "NICK " + self.ID + "\r\n")
-		encoded_send(s, "JOIN #" + self.CHANNEL + "\r\n")
-		return s
 
 	def chat(self, message): 
 		sendMessage(self.socket, self.CHANNEL, message)
@@ -52,3 +44,10 @@ class base_bot:
 					self.sendMessage("terminating program")
 					exit()
 					break
+
+if __name__ == "__main__": 
+	a = base_bot(key.CHANNEL, key.IDENT,key.PASS)
+	a.chat("HELLO HELLO")
+	a.run()
+
+
