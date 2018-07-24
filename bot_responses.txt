@@ -1,0 +1,4 @@
+!hi_bot ::: hello bot!
+!hi_rat ::: hello mouse!
+!hi_cat ::: hello cat!
+!hi_mat ::: hello mat!

@@ -29,7 +29,7 @@ def loadingComplete(line):
 
 def send_pong(socket): 
 	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
-	#not necessary, but gives confirmation that the pong is working properly
+	#not necessary, but gives confrimation/clarification that the function was called
 	print("PONG sent to twitch") 
 
 def openSocket(host, port, pass_w, nick_n, channel):
@@ -55,6 +55,7 @@ def joinRoom(socket, channel, readbuffer):
 #match function
 
 #Moderator/Broadcaster Functions
+#TODO: make this function more simple/pythonic
 def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
 	'''time is measured in minutes'''
 	if (time == 0) and ((func == 'timeout_user') or (func == 'slowmode')):
@@ -80,3 +81,22 @@ def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
 	}
 	execute = switcher.get(func, "E R R O R")
 	sendMessage(socket, channel, execute)
+
+def message_response(fname):
+	with open(fname) as f: 
+		responses = f.read()
+		pairs = responses.strip().split('\n')
+		response_table = {}
+		for each in pairs: 
+			(msg, resp) = each.split(':::')
+			response_table[msg.strip()] = resp.strip()
+
+	return response_table
+
+def auto_resp_msg(resp_tab: dict, msg): 
+	for word in msg.split():
+		output = resp_tab.get(word)
+		if (output != None):
+			return output
+	return ""
+			

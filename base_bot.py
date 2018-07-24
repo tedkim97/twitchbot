@@ -1,8 +1,8 @@
-cimport string
+import string
 import socket
 import re
 from gen_functions import*
-import credentials as key
+from redundant import credentials as key
 
 class base_bot: 
 	'''This is a base-chat bot that has basic functionality of connecting

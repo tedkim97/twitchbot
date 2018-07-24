@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-import credentials as key
+from redundant import credentials as key
 from base_bot import base_bot
 
 class mod_bot(base_bot): 
@@ -32,9 +32,9 @@ class mod_bot(base_bot):
 
 				if ("terminate bot" in line) and (user == self.CHANNEL):
 					print("terminating program")
-					mod_func(self.socket, self.CHANNEL,'emote_only')
-					#self.sendMessage("terminating program")
-					#exit()
+					#mod_func(self.socket, self.CHANNEL,'emote_only')
+					self.sendMessage("terminating program")
+					exit()
 					break
 
 

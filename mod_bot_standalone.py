@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-import credentials as key
+from redundant import credentials as key
 
 class mod_bot(object): 
 	"""the mod-bot is created as an object to give the flexibility
@@ -15,12 +15,15 @@ class mod_bot(object):
 		self.HOST= host
 		self.PORT= port		
 		self.readbuffer = ""
-		self.socket = self.openSocket() 
+		self.socket = openSocket(host,port,oauth,iden,chan)
 		self._joinRoom()
+		self.resp_tab = message_response('bot_responses.txt')
 
 	def _joinRoom(self):
 		joinRoom(self.socket, self.CHANNEL, self.readbuffer)
 
+	#Still debating whether I want to keep this modified function here - 
+	# it doesn't really add anything significant to the program 
 	def openSocket(self):
 		s = socket.socket()
 		s.connect((self.HOST, self.PORT))
@@ -29,8 +32,13 @@ class mod_bot(object):
 		encoded_send(s, "JOIN #" + self.CHANNEL + "\r\n")
 		return s
 
-	def chat(self, message): 
-		sendMessage(self.socket, self.CHANNEL, message)
+	def chat(self, message, user=""):
+		if user == "": 
+			sendMessage(self.socket, self.CHANNEL, message)
+		else: 
+			#this sends out whispers in twitchchat
+			new_message = "/w " + user + " " + message
+			sendMessage(self.socket, self.CHANNEL, new_message)
 
 	def run(self): 
 		while True: 
@@ -44,13 +52,22 @@ class mod_bot(object):
 					send_pong(self.socket)
 					break
 
+					
+
 				user = getUser(line)
 				message = getMessage(line)
+
+				a = auto_resp_msg(self.resp_tab, message)			
+				if(a != ""):
+					# self.chat(a)
+					self.chat(a, user = user)
+
 				print(user + " typed: " + message)
 
 				if ("terminate bot" in line) and (user == self.CHANNEL):
 					print("terminating program")
-					#self.sendMessage("terminating program")
+					self.chat("terminating program",user = self.CHANNEL)
+					# sendMessage("terminating program")
 					exit()
 					break
 
