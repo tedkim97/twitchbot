@@ -10,7 +10,7 @@ def encoded_send(socket, msg:str):
 def getMessage(line): 
 	separate = line.split(":", 2)
 	message = separate[2]
-	return message
+	return message.lower()
 
 def getUser(line):
 	separate = line.split(":", 2)
@@ -29,7 +29,7 @@ def loadingComplete(line):
 
 def send_pong(socket): 
 	encoded_send(socket, "PONG :tmi.twitch.tv\r\n")
-	#not necessary, but gives confrimation/clarification that the function was called
+	#not needed - but gives confirmation/clarification that the function was called
 	print("PONG sent to twitch") 
 
 def openSocket(host, port, pass_w, nick_n, channel):
@@ -61,7 +61,6 @@ def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
 	if (time == 0) and ((func == 'timeout_user') or (func == 'slowmode')):
 		time = ""
 	
-
 	#This IF lets the bot avoid spamming useless commands
 	if (user == '') and ((func == 'timeout_user') or (func == 'unban_user') or 
 	(func == 'ban_user')):
@@ -82,7 +81,7 @@ def mod_func(socket, channel, func, user ='', time=0, ban_msg = ''):
 	execute = switcher.get(func, "E R R O R")
 	sendMessage(socket, channel, execute)
 
-def message_response(fname):
+def unpack_response(fname):
 	with open(fname) as f: 
 		responses = f.read()
 		pairs = responses.strip().split('\n')
@@ -90,7 +89,6 @@ def message_response(fname):
 		for each in pairs: 
 			(msg, resp) = each.split(':::')
 			response_table[msg.strip()] = resp.strip()
-
 	return response_table
 
 def auto_resp_msg(resp_tab: dict, msg): 
@@ -99,4 +97,6 @@ def auto_resp_msg(resp_tab: dict, msg):
 		if (output != None):
 			return output
 	return ""
+
+
 			

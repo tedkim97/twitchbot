@@ -15,9 +15,11 @@ class mod_bot(object):
 		self.HOST= host
 		self.PORT= port		
 		self.readbuffer = ""
+		self.resp_tab = unpack_response('bot_responses.txt')
+		self.mod_resp_tab = unpack_response('ban_responses.txt')
+		self.ztest = {**self.resp_tab, **self.mod_resp_tab}
 		self.socket = openSocket(host,port,oauth,iden,chan)
 		self._joinRoom()
-		self.resp_tab = message_response('bot_responses.txt')
 
 	def _joinRoom(self):
 		joinRoom(self.socket, self.CHANNEL, self.readbuffer)
@@ -40,6 +42,9 @@ class mod_bot(object):
 			new_message = "/w " + user + " " + message
 			sendMessage(self.socket, self.CHANNEL, new_message)
 
+	def mod_func(self, func, user ='', time=0, ban_msg = ''):
+		mod_func(self.socket, self.CHANNEL, func, user = user, time = time, ban_msg = ban_msg)
+
 	def run(self): 
 		while True: 
 			self.readbuffer = self.readbuffer + (self.socket.recv(1024)).decode("utf-8")
@@ -48,18 +53,18 @@ class mod_bot(object):
 
 			for line in temp: 
 				if "PING :tmi.twitch.tv" in line: 
-					print("Ping received") # not necessary
 					send_pong(self.socket)
 					break
-
-					
 
 				user = getUser(line)
 				message = getMessage(line)
 
+				b = auto_resp_msg(self.mod_resp_tab, message)
+				if(b != ""):
+					self.mod_func(b, user = user, time = 3)
+
 				a = auto_resp_msg(self.resp_tab, message)			
-				if(a != ""):
-					# self.chat(a)
+				if(a != ""):	
 					self.chat(a, user = user)
 
 				print(user + " typed: " + message)
@@ -67,25 +72,12 @@ class mod_bot(object):
 				if ("terminate bot" in line) and (user == self.CHANNEL):
 					print("terminating program")
 					self.chat("terminating program",user = self.CHANNEL)
-					# sendMessage("terminating program")
+					sendMessage("terminating program")
 					exit()
 					break
 
-				if ("tf" in line) and (user == self.CHANNEL):
-					print("Testing Function")
-					#mod_func(self.socket, self.CHANNEL,'emote_only') #works
-					#mod_func(self.socket, self.CHANNEL, 'timeout_user', 'twitch_tries', time=5)
-					#mod_func(self.socket, self.CHANNEL, 'unban_user', 'twitch_tries')
-					#mod_func(self.socket, self.CHANNEL, 'timeout_user', 'twitch_tries',time=1)
-					# mod_func(self.socket, self.CHANNEL, 'timeout_user') #works
-					# mod_func(self.socket, self.CHANNEL, 'ban_user') #works
-					# mod_func(self.socket, self.CHANNEL, 'unban_user') #works
-					#mod_func(self.socket, self.CHANNEL, 'slowmode', time=5) #works
-					#mod_func(self.socket, self.CHANNEL, 'slowmode')
-
-
 if __name__ == "__main__": 
-	a = mod_bot(key.CHANNEL, key.IDENT,key.PASS) # #'imaqtpie'
-	#a.chat("HELLO HELLO")
+	a = mod_bot(key.CHANNEL, key.IDENT,key.PASS)
+	#a.chat("Mod_Bot has started", user = key.CHANNEL)
 	a.run()
 

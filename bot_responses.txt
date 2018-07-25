@@ -1,4 +1,5 @@
-!hi_bot ::: hello bot!
-!hi_rat ::: hello mouse!
-!hi_cat ::: hello cat!
-!hi_mat ::: hello mat!
+!op.gg ::: http://na.op.gg/
+!twitter ::: www.twitter.com
+!spotify ::: spotify.com
+!twitch ::: twitch.tv
+!computer_specs ::: toaster
