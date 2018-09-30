@@ -3,6 +3,7 @@ import socket
 import re
 from gen_functions import*
 from keys import credentials as key
+from configs import*
 
 class mod_bot(object): 
 	"""the mod-bot is created as an object to give the flexibility
