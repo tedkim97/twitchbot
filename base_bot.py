@@ -47,7 +47,7 @@ class base_bot:
 
 if __name__ == "__main__": 
 	a = base_bot(key.CHANNEL, key.IDENT,key.PASS)
-	a.chat("HELLO HELLO")
+	a.chat("Bot has booted up!")
 	a.run()
 
 
