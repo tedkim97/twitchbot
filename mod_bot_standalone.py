@@ -83,7 +83,6 @@ class mod_bot(object):
 if __name__ == "__main__": 
 	a = mod_bot(key.CHANNEL, key.IDENT,key.PASS)
 	# a.chat("Mod_Bot has started", user = key.CHANNEL)
-	a.chat("Mod_Bot has started")
-	a.chat("OIFJOWEIFJOWEIJFOIEJ")
+	a.chat("Why isn't this wokring??")
 	a.run()
 

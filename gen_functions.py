@@ -5,6 +5,7 @@ import re
 '''Essential functions for connecting to and interacting with twitch chat'''
 def encoded_send(socket, msg:str):
 	'''passes a properly encoded message to the socket'''
+	# socket.send(msg.encode("utf-8"))
 	socket.send(msg.encode("utf-8"))
 
 def getMessage(line): 
@@ -19,7 +20,7 @@ def getUser(line):
 
 def sendMessage(socket, channel, message): 
 	messageTemp = "PRIVMSG #" + channel + " :" + message
-	encoded_send(socket, messageTemp+"\r\n")
+	encoded_send(socket, messageTemp+ "\r\n")
 	print("SENT: " + messageTemp)
 
 def loadingComplete(line): 
