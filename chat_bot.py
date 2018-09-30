@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-from redundant import credentials as key
+from keys import credentials as key
 
 class tc_bot(object): 
 	"""the chat bot is created as an object to give the flexibility

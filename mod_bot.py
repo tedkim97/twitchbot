@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-from redundant import credentials as key
+from keys import credentials as key
 from base_bot import base_bot
 
 class mod_bot(base_bot): 
