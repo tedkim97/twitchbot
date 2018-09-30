@@ -8,15 +8,17 @@ class mod_bot(object):
 	"""the mod-bot is created as an object to give the flexibility
 	of running multiple bots at once given different parameters"""
 
-	def __init__(self,chan,iden,oauth,host="irc.chat.twitch.tv",port=6667): 
+	def __init__(self,chan,iden,oauth,resp_fname='bot_responses.txt',
+				ban_fname='ban_responses.txt',
+				host="irc.chat.twitch.tv",port=6667): 
 		self.CHANNEL = chan
 		self.ID= iden
 		self.PASS= oauth
 		self.HOST= host
 		self.PORT= port		
 		self.readbuffer = ""
-		self.resp_tab = unpack_response('bot_responses.txt')
-		self.mod_resp_tab = unpack_response('ban_responses.txt')
+		self.resp_tab = unpack_response(resp_fname)
+		self.mod_resp_tab = unpack_response(ban_fname)
 		self.ztest = {**self.resp_tab, **self.mod_resp_tab}
 		self.socket = openSocket(host,port,oauth,iden,chan)
 		self._joinRoom()

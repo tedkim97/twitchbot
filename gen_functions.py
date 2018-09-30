@@ -2,7 +2,7 @@ import string
 import socket
 import re
 
-'''Essential functions for connecting to and interacting with'''
+'''Essential functions for connecting to and interacting with twitch chat'''
 def encoded_send(socket, msg:str):
 	'''passes a properly encoded message to the socket'''
 	socket.send(msg.encode("utf-8"))
@@ -91,7 +91,7 @@ def unpack_response(fname):
 			response_table[msg.strip()] = resp.strip()
 	return response_table
 
-def auto_resp_msg(resp_tab: dict, msg): 
+def auto_resp_msg(resp_tab: dict, msg):
 	for word in msg.split():
 		output = resp_tab.get(word)
 		if (output != None):
