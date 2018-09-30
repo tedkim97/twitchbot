@@ -1,7 +1,7 @@
 import string
 import socket
 import re
-from gen_functions import*
+import gen_functions as gf
 from keys import credentials as key
 
 class base_bot: 
@@ -15,14 +15,11 @@ class base_bot:
 		self.HOST= host
 		self.PORT= port			
 		self.readbuffer = ""
-		self.socket = openSocket(host,port,oauth,iden,channel)
-		self._joinRoom()
-
-	def _joinRoom(self):
-		joinRoom(self.socket, self.CHANNEL, self.readbuffer)
+		self.socket = gf.openSocket(host,port,oauth,iden,channel)
+		gf.joinRoom(self.socket, self.CHANNEL, self.readbuffer)
 
 	def chat(self, message): 
-		sendMessage(self.socket, self.CHANNEL, message)
+		gf.sendMessage(self.socket, self.CHANNEL, message)
 
 	def run(self): 
 		while True: 
@@ -32,11 +29,11 @@ class base_bot:
 
 			for line in temp: 
 				if "PING :tmi.twitch.tv" in line: 
-					send_pong(self.socket)
+					gf.send_pong(self.socket)
 					break
 
-				user = getUser(line)
-				message = getMessage(line)
+				user = gf.getUser(line)
+				message = gf.getMessage(line)
 				print(user + " typed: " + message)
 
 				if ("terminate bot" in line) and (user == self.CHANNEL):
@@ -48,6 +45,7 @@ class base_bot:
 if __name__ == "__main__": 
 	a = base_bot(key.CHANNEL, key.IDENT,key.PASS)
 	a.chat("Bot has booted up!")
+	a.chat("owedijwoeidjoij")
 	a.run()
 
 

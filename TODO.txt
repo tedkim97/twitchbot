@@ -1,0 +1,2 @@
+Add unit tests for the bots 
+fix lazy programming practices from before

@@ -3,14 +3,15 @@ import socket
 import re
 from gen_functions import*
 from keys import credentials as key
-from configs import*
 
 class mod_bot(object): 
 	"""the mod-bot is created as an object to give the flexibility
 	of running multiple bots at once given different parameters"""
 
-	def __init__(self,chan,iden,oauth,resp_fname='bot_responses.txt',
-				ban_fname='ban_responses.txt',
+
+	###FIX HOW WE GET THESE FILE NAMES LATER
+	def __init__(self,chan,iden,oauth,resp_fname='configs/bot_responses.txt',
+				ban_fname='configs/ban_responses.txt',
 				host="irc.chat.twitch.tv",port=6667): 
 		self.CHANNEL = chan
 		self.ID= iden
@@ -81,6 +82,8 @@ class mod_bot(object):
 
 if __name__ == "__main__": 
 	a = mod_bot(key.CHANNEL, key.IDENT,key.PASS)
-	#a.chat("Mod_Bot has started", user = key.CHANNEL)
+	# a.chat("Mod_Bot has started", user = key.CHANNEL)
+	a.chat("Mod_Bot has started")
+	a.chat("OIFJOWEIFJOWEIJFOIEJ")
 	a.run()
 
