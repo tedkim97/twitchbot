@@ -1,3 +1,7 @@
 Add unit tests for the bots 
 fix lazy programming practices from before
 The way these robots interact with chat suddenly broke
+	I rechecked on 12/31, and it seems to be fine
+
+TODO: Refresh keys for twitch bots, as of 2018, old keys generated in a specific way will be retired
+TODO: Support multithreading 
