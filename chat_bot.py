@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-from keys import credentials as key
+# from keys import credentials as key
 
 class tc_bot(object): 
 	"""the chat bot is created as an object to give the flexibility
@@ -69,7 +69,7 @@ class tc_bot(object):
 
 
 if __name__ == "__main__": 
-	a = tc_bot(key.CHANNEL, key.IDENT,key.PASS)
+	a = tc_bot(chan, iden, oauth)
 	a.sendMessage("HELLO HELLO")
 	a.run()
 

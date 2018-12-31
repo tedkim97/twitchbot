@@ -2,7 +2,7 @@ import string
 import socket
 import re
 from gen_functions import*
-from keys import credentials as key
+# from keys import credentials as key
 
 class mod_bot(object): 
 	"""the mod-bot is created as an object to give the flexibility
@@ -19,9 +19,9 @@ class mod_bot(object):
 		self.HOST= host
 		self.PORT= port		
 		self.readbuffer = ""
-		self.resp_tab = unpack_response(resp_fname)
-		self.mod_resp_tab = unpack_response(ban_fname)
-		self.ztest = {**self.resp_tab, **self.mod_resp_tab}
+		# self.resp_tab = unpack_response(resp_fname)
+		# self.mod_resp_tab = unpack_response(ban_fname)
+		# self.ztest = {**self.resp_tab, **self.mod_resp_tab}
 		self.socket = openSocket(host,port,oauth,iden,chan)
 		self._joinRoom()
 
@@ -63,13 +63,13 @@ class mod_bot(object):
 				user = getUser(line)
 				message = getMessage(line)
 
-				b = auto_resp_msg(self.mod_resp_tab, message)
-				if(b != ""):
-					self.mod_func(b, user = user, time = 3)
+				# b = auto_resp_msg(self.mod_resp_tab, message)
+				# if(b != ""):
+				# 	self.mod_func(b, user = user, time = 3)
 
-				a = auto_resp_msg(self.resp_tab, message)			
-				if(a != ""):	
-					self.chat(a, user = user)
+				# a = auto_resp_msg(self.resp_tab, message)			
+				# if(a != ""):	
+				# 	self.chat(a, user = user)
 
 				print(user + " typed: " + message)
 
@@ -81,7 +81,7 @@ class mod_bot(object):
 					break
 
 if __name__ == "__main__": 
-	a = mod_bot(key.CHANNEL, key.IDENT,key.PASS)
+	# a = mod_bot(chan,iden,oauth)
 	# a.chat("Mod_Bot has started", user = key.CHANNEL)
 	a.chat("Why isn't this wokring??")
 	a.run()

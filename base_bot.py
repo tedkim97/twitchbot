@@ -2,7 +2,7 @@ import string
 import socket
 import re
 import gen_functions as gf
-from keys import credentials as key
+# from keys import credentials as key
 
 class base_bot: 
 	'''This is a base-chat bot that has basic functionality of connecting
@@ -43,7 +43,8 @@ class base_bot:
 					break
 
 if __name__ == "__main__": 
-	a = base_bot(key.CHANNEL, key.IDENT,key.PASS)
+
+	# a = base_bot(key.CHANNEL, key.IDENT,key.PASS)
 	a.chat("Bot has booted up!")
 	a.chat("owedijwoeidjoij")
 	a.run()
